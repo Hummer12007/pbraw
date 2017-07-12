@@ -16,10 +16,10 @@ def grab_from_links(url, req):
     except ValueError: # invalid encoding
         return False
     purl = list(urlparse(url))
-    purl[3:5] = [''] * 3
-    doc = lxml.html.document_from_string(text).make_links_absolute(urlunparse(purl))
+    purl[2:5] = [''] * 4
+    doc = lxml.html.document_fromstring(text).make_links_absolute(urlunparse(purl))
     links = set()
-    for el, attr, dest, pos in doc.getroot().iterlinks():
+    for el, attr, dest, pos in doc.iterlinks():
         if el.tag != 'a':
             continue
         for name in ['raw', 'download', 'plain']:
