@@ -1,5 +1,4 @@
-import requests
-from requests.exceptions import RequestException
+from pbraw.util import get_url
 
 class URLDispatcher():
 
@@ -35,11 +34,9 @@ class URLDispatcher():
         self.handlers.insert(i, (priority, handler))
 
     def grab_url(self, url):
-        try:
-            req = requests.get(url)
-            req.raise_for_status()
-        except RequestException:
-            return [] # should we reraise it instead?
+        req = get_url(url)
+        if not req:
+            return []
         for handler in self.handlers:
             res = handler(url, req)
             if res:

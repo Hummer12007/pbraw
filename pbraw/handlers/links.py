@@ -4,7 +4,7 @@ import requests
 from requests.exceptions import RequestException
 
 from pbraw import dispatcher
-from pbraw.util import urlparse, urlunparse
+from pbraw.util import urlparse, urlunparse, get_url
 from pbraw.handlers.plain import grab_plain
 
 @dispatcher.handler(priority=5)
@@ -24,16 +24,14 @@ def grab_from_links(url, req):
             continue
         for name in ['raw', 'download', 'plain']:
             if name in el.text_content().lower():
-                purl.add(dest)
+                links.add(dest)
                 break
     res = []
     for link in links:
-        try:
-            r = requests.get(link)
-            r.raise_for_status()
-        except RequestException:
-            break
-        ret = grab_plain(link)
+        r = get_url(link)
+        if not r:
+            continue
+        ret = grab_plain(link, r)
         if ret:
             res.extend(ret)
     return res if res else False
