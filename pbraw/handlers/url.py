@@ -2,10 +2,10 @@ from pbraw import dispatcher
 from pbraw.util import urlparse, urlunparse, get_url
 from pbraw.handlers.plain import grab_plain
 
-def modifier(selector, decoder, modifier, encoder, string):
+def modifier(selector, decoder, transformer, encoder, string):
     def f(x):
         a = x[:]
-        a[selector] = encoder(modifier(decoder(a[selector]), string))
+        a[selector] = encoder(transformer(decoder(a[selector]), string))
         return urlunparse(a)
     return f
 
