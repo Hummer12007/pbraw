@@ -10,7 +10,7 @@ except ImportError:
 from pbraw import dispatcher
 from pbraw.util import urlparse
 
-CD_FILENAME_RE = re.compile('.*?;\s*filename\s*(\*?)\s*=\s*(?:\"(.*)\"\s*|(.*))', re.G, re.I, re.X)
+CD_FILENAME_RE = re.compile('.*?;\s*filename\s*(\*?)\s*=\s*(?:\"(.*)\"\s*|(.*))', flags=re.I | re.X)
 
 def handle(string):
     enc, _, string = string.partition('\'')
@@ -30,7 +30,7 @@ def grab_plain(url, req):
     except ValueError: # invalid encoding
         return False
     if 'content-disposition' in req.headers:
-        for m in CD_FILENAME_RE.search(req.headers['content-disposition']):
+        for m in CD_FILENAME_RE.findall(req.headers['content-disposition']):
             star, filename = m.group(1), m.group(2) or m.group(3)
             name = handle(filename) if star else filename
     if not name:

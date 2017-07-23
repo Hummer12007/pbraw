@@ -17,12 +17,12 @@ def main():
 #    if args.file and not path.isfile(path.cookies_file):
 #        print('Error: invalid cookies file provided')
 #        exit(-1)
-    
+
     for url in args.url:
         files = grab(url)
         if files:
             for name, contents in files:
                 print('Received', name)
-                print(contents.decode('utf-8'))
+                print(str(contents))
         else:
             print('Error: could not grab', url)
