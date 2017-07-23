@@ -29,6 +29,7 @@ def grab_plain(url, req):
         ret = req.text
     except ValueError: # invalid encoding
         return False
+    name = None
     if 'content-disposition' in req.headers:
         for m in CD_FILENAME_RE.findall(req.headers['content-disposition']):
             star, filename = m.group(1), m.group(2) or m.group(3)
