@@ -9,7 +9,7 @@ setup(
     author_email='hilobakho@gmail.com',
     license='MIT',
     packages=find_packages(),
-    install_requires=['requests'],
+    install_requires=['lxml', 'requests'],
     entry_points={
         'console_scripts':['pbraw = pbraw.main:main']
     }
