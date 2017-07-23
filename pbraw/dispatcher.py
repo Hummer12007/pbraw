@@ -3,7 +3,7 @@ from pbraw.util import get_url
 class URLDispatcher():
 
     def __init__(self):
-        if self.instance:
+        if hasattr(self, 'instance') and self.instance:
             return
         self.handlers = []
         URLDispatcher.instance = self
@@ -24,7 +24,7 @@ class URLDispatcher():
         def __call__(self, func, *args, **kwargs):
             x = self._handler(func, self.priority)
             return x
-    
+
     def register_handler(self, handler, priority):
         i = 0
         for i in range(len(self.handlers)):
@@ -37,7 +37,7 @@ class URLDispatcher():
         req = get_url(url)
         if not req:
             return []
-        for handler in self.handlers:
+        for (priority, handler) in self.handlers:
             res = handler(url, req)
             if res:
                 return res

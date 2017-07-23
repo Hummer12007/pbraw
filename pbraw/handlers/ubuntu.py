@@ -14,8 +14,8 @@ def grab_from_ubuntu(url, req):
         text = req.text
     except ValueError: # invalid encoding
         return False
-    doc = lxml.html.document_from_string(text)
+    doc = lxml.html.document_fromstring(text)
     elem = doc.xpath('//td[@class="code"]/div/pre')
     if not elem:
         return False
-    return [(urlparse(url).path.split('/')[-1], elem.text_content())]
+    return [(urlparse(url).path.split('/')[-1], elem[0].text_content())]
