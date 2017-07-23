@@ -16,8 +16,9 @@ def grab_from_links(url, req):
     except ValueError: # invalid encoding
         return False
     purl = list(urlparse(url))
-    purl[2:5] = [''] * 4
-    doc = lxml.html.document_fromstring(text).make_links_absolute(urlunparse(purl))
+    purl[2:5] = [''] * 3
+    doc = lxml.html.document_fromstring(text)
+    doc.make_links_absolute(urlunparse(purl))
     links = set()
     for el, attr, dest, pos in doc.iterlinks():
         if el.tag != 'a':
