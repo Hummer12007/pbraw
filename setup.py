@@ -11,6 +11,6 @@ setup(
     packages=find_packages(),
     install_requires=['requests'],
     entry_points={
-        'console_scripts':['pbraw = pbex.main:main']
+        'console_scripts':['pbraw = pbraw.main:main']
     }
 )
