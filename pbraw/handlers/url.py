@@ -33,13 +33,15 @@ def grab_rewriting_urls(url, req):
     for label in ['raw', 'download', 'plain', 'dl']:
         links.update([f(label)(purl) for f in [p_prepender, p_appender, p_replacer, p_inserter, q_prepender]])
 
-    res = []
+    #res = []
     for link in links:
         r = get_url(link)
         if not r:
             continue
         ret = grab_plain(link, r)
         if ret:
-            res.extend(ret)
-            break
-    return res if res else False
+            return ret
+            #res.extend(ret)
+            #break
+    #return res if res else False
+    return False
