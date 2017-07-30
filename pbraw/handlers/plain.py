@@ -31,7 +31,7 @@ def grab_plain(url, req):
         return False
     name = ''
     if 'content-disposition' in req.headers:
-        for m in CD_FILENAME_RE.findall(req.headers['content-disposition']):
+        for m in CD_FILENAME_RE.finditer(req.headers['content-disposition']):
             star, filename = m.group(1), m.group(2) or m.group(3)
             name = handle(filename) if star else filename
     if not name:
