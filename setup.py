@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pbraw',
-    version='0.1',
+    version='0.1.1',
     description='A library to extract plaintexts from pastebins',
     url='https://github.com/Hummer12007/pbraw',
     author='Mykyta Holubakha',
