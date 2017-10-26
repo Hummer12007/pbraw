@@ -13,7 +13,7 @@ import requests
 from requests.exceptions import ConnectionError, Timeout
 
 class _get_url():
-    """Memoizing requests::get"""
+    """Memorizing requests::get"""
     def __init__(self):
         self._results = {}
 
