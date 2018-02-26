@@ -2,7 +2,7 @@
 
 from argparse import ArgumentParser
 from os import path
-from sys import exit
+from sys import exit, stderr
 
 from pbraw import grab
 
@@ -22,7 +22,7 @@ def main():
         files = grab(url)
         if files:
             for name, contents in files:
-                print('Received', name)
-                print(str(contents))
+                print('Received', name, file=stderr)
+                print(str(contents), end='')
         else:
             print('Error: could not grab', url)
